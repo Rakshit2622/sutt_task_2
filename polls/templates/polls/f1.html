@@ -1,0 +1,31 @@
+{% extends "polls/base.html" %}
+{% block content %}
+	<h1 class ="text-center mb-3">Poll Questions</h1>
+	
+	{% if question_list %}
+		{% for question in question_list %}
+			<article class="media content-section">
+			  <div class="media-body">
+			    <div class="article-metadata">
+			      <a class="mr-2" href="#"></a>
+			      <small class="text-muted">{{ question.date_posted|date:"F d, Y" }}</small>
+			    </div>
+			    <h2><a class="article-title">{{ question.question_content }}</a></h2>
+			    <form action ="{% url 'vote' question.id %}" method ="POST">
+					{% csrf_token %}
+					{% for choice in question.choice_set.all %}
+    					<div class ="form-check">
+    						<input type ="radio" name ="choice" class ="form-check-input" id ="choice{{ forloop.counter }}" value = "{{ choice.id }}" />
+    						<label for ="choice{{ forloop.counter }}">{{ choice.choice_content }}</label>
+						</div>
+					{% endfor %}
+					<input type="reset" value="Clear">
+			    	<input type ="submit" value ="Vote" class ="btn btn-success btn-lg btn-block mt-4" />
+				</form>
+			  </div>
+			</article>
+		{% endfor %}
+	{% else %}
+		<p>No polls available</p>
+	{% endif %}
+{% endblock %}

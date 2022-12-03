@@ -1,0 +1,11 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+    {% if error_message %}
+        <p class ="alert alert-danger">
+            <strong>{{ error_message }}</strong>
+        </p>
+    {% endif %}
+  
+    <a class ="btn btn-secondary" href ="{% url 'Index_view' %}">Back To Polls</a>
+
+{% endblock %}
