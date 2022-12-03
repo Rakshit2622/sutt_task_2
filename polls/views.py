@@ -8,6 +8,11 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def IndexView(request):
+	question_list = Question.objects.order_by('-date_posted')[:5]
+	return render(request,'polls/f1.html',{'question_list':question_list})
+
+@login_required
+def IndexView_copy(request):
 	question_list = Question.objects.order_by('-date_posted')
 	return render(request,'polls/f1.html',{'question_list':question_list})
 
